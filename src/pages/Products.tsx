@@ -136,6 +136,10 @@ export default function Products() {
       (stockFilter === "all" || (stockFilter === "out" ? isOut(p) : isLow(p) && !isOut(p)))
   );
 
+  const categoryTotalCost = useMemo(() => {
+    return rows.reduce((s, p) => s + (available(p) * (p.costPrice || 0)), 0);
+  }, [rows]);
+
   const openAdd = () => { setEditing(null); setFormOpen(true); };
   const openEdit = (p: Product) => { setEditing(p); setFormOpen(true); setMenu(null); };
   const duplicate = async (p: Product) => {
@@ -299,7 +303,7 @@ export default function Products() {
     <div>
       <PageHeader
         title="Products"
-        subtitle={`${rows.length} products`}
+        subtitle={`${rows.length} products · Total cost: ${inr(categoryTotalCost)}`}
         actions={
           <>
             <div className="flex overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
