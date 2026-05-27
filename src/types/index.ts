@@ -174,7 +174,6 @@ export interface AppSettings {
   companyEmail: string;
   companyWebsite: string;
   companyGstin: string;
-  defaultGst: number;
   invoicePrefix: string;
   currencySymbol: string;
   enableBarcode: boolean;
