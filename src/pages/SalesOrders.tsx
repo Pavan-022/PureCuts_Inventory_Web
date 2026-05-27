@@ -242,7 +242,7 @@ function InvoiceModal({ order, onClose }: { order: SalesOrder | null; onClose: (
       </div>
 
       {/* Quick create-new-product */}
-      <QuickAddProduct open={quickAdd} onClose={() => setQuickAdd(false)} defaultGst={settings.defaultGst} onCreated={(p) => { addProductLine(p); setQuickAdd(false); }} />
+      <QuickAddProduct open={quickAdd} onClose={() => setQuickAdd(false)} onCreated={(p) => { addProductLine(p); setQuickAdd(false); }} />
 
       {/* "Ask each time" save-scope prompt */}
       <Modal
@@ -275,11 +275,11 @@ function Labeled({ label, children }: { label: string; children: React.ReactNode
   );
 }
 
-function QuickAddProduct({ open, onClose, defaultGst, onCreated }: { open: boolean; onClose: () => void; defaultGst: number; onCreated: (p: Product) => void }) {
-  const [f, setF] = useState({ name: "", sku: "", brand: "", category: "", costPrice: 0, sellingPrice: 0, gstRate: defaultGst });
+function QuickAddProduct({ open, onClose, onCreated }: { open: boolean; onClose: () => void; onCreated: (p: Product) => void }) {
+  const [f, setF] = useState({ name: "", sku: "", brand: "", category: "", costPrice: 0, sellingPrice: 0, gstRate: 18 });
   const set = (k: keyof typeof f, v: string | number) => setF({ ...f, [k]: v });
 
-  useEffect(() => { if (open) setF({ name: "", sku: "", brand: "", category: "", costPrice: 0, sellingPrice: 0, gstRate: defaultGst }); }, [open, defaultGst]);
+  useEffect(() => { if (open) setF({ name: "", sku: "", brand: "", category: "", costPrice: 0, sellingPrice: 0, gstRate: 18 }); }, [open]);
 
   const create = async () => {
     if (f.name.trim().length < 2) { toast.error("Enter a product name"); return; }
